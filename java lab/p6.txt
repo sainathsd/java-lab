@@ -1,0 +1,96 @@
+package asj;
+
+class MyThread implements Runnable{
+    Thread thrd;
+    MyThread(String name)
+    {
+   	  thrd=new Thread(this,name);
+   	  thrd.start();
+    }
+    public void run()
+    {
+   	 System.out.println(thrd.getName() +"Starting.");
+   	 try {
+   		 for(int count=0;count<10;count++)
+   		 {
+   			 Thread.sleep(400);
+   			 System.out.println("In " + thrd.getName() + "  count is" + count );
+   		 }
+   	 }
+   	 catch(InterruptedException exc)
+   	 {
+   		 System.out.println(thrd.getName()+" interrupted");
+   		 
+   	 }
+   	 System.out.println(thrd.getName() + " terminating");
+    }
+}
+
+
+public class JoinThreads {
+
+    public static void main(String[] args) {
+   	 System.out.println("Main thread starting");
+   	 MyThread mt1=new MyThread("Child #1");
+   	 MyThread mt2=new MyThread("Child #2");
+   	 MyThread mt3=new MyThread("Child #3");
+   	 try
+   	 {
+   	  mt1.thrd.join();
+   	  System.out.println("Child #1 joined");
+   	 mt2.thrd.join();
+   	 System.out.println("Child #2 joined");
+   	 mt3.thrd.join();
+   	 System.out.println("Child #3 joined");
+   	 }
+  	 
+   	 catch(InterruptedException exc)
+   	 {
+   		 System.out.println("Main thread interrupted");
+   	 }
+   	 System.out.println("Main thread ending");
+    }
+}
+
+
+Main thread starting
+Child #1Starting.
+Child #2Starting.
+Child #3Starting.
+In Child #1 count is0
+In Child #2 count is0
+In Child #3 count is0
+In Child #1 count is1
+In Child #2 count is1
+In Child #3 count is1
+In Child #1 count is2
+In Child #2 count is2
+In Child #3 count is2
+In Child #1 count is3
+In Child #2 count is3
+In Child #3 count is3
+In Child #1 count is4
+In Child #3 count is4
+In Child #2 count is4
+In Child #1 count is5
+In Child #3 count is5
+In Child #2 count is5
+In Child #1 count is6
+In Child #2 count is6
+In Child #3 count is6
+In Child #1 count is7
+In Child #2 count is7
+In Child #3 count is7
+In Child #2 count is8
+In Child #1 count is8
+In Child #3 count is8
+In Child #1 count is9
+Child #1 terminating
+Child #1 joined
+In Child #2 count is9
+In Child #3 count is9
+Child #3 terminating
+Child #2 terminating
+Child #2 joined
+Child #3 joined
+Main thread ending
